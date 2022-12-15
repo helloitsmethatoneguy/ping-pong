@@ -104,7 +104,7 @@ while not event.peek(QUIT):
     player2.draw(window)
     if ball.rect.right > WIDTH:
         p1_w.draw(window)
-    if ball.rect.right < 0:
+    if ball.rect.left < 0:
         p2_w.draw(window)
     ball.update()
     ball.draw(window)
