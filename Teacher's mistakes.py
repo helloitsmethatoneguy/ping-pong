@@ -79,26 +79,35 @@ class Ball(ImageSprite):
         self.rect.topleft += self.vel
         if self.rect.bottom > HEIGHT or self.rect.top < 0:
             self.vel.y = self.vel.y*-1
-        if self.rect.right > WIDTH or self.rect.left < 0:
-            self.vel.x = self.vel.x*-1
 
 
 
 
+bg = ImageSprite(filename='download.png', position=(0,0), size=(800,640))
 player = PlayerSprite(filename='Capture.PNG', position=(30,320), size=(20,80), velocity=(0,8))
 player2 = PlayerSprite2(filename='Capture.PNG', position=(730,320), size=(20,80), velocity=(0,8))
-ball = Ball(filename='ball2.png', position=(400, 320), size=(20,20), velocity=(1,5))
+ball = Ball(filename='ball2.png', position=(400, 320), size=(20,20), velocity=(4,5))
+p1_w = ImageSprite(filename='P1 WINS.png', position=(0,0), size=(800,640))
+p2_w = ImageSprite(filename='P2 WINS.png', position=(0,0), size=(800,640))
 
 while not event.peek(QUIT):
     window.fill('black')
-    
+    if sprite.collide_rect(ball, player):
+        ball.vel.x = ball.vel.x*-1
+    if sprite.collide_rect(ball, player2):
+        ball.vel.x = ball.vel.x*-1
+
+    bg.draw(window)
     player.update()
     player2.update()
     player.draw(window)
     player2.draw(window)
+    if ball.rect.right > WIDTH:
+        p1_w.draw(window)
+    if ball.rect.right < 0:
+        p2_w.draw(window)
     ball.update()
     ball.draw(window)
-
 
 
     display.update()
